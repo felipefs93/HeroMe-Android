@@ -19,7 +19,7 @@ import com.soaresfelipef.herome.R;
  * Use the {@link MainFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MainFragment extends Fragment {
+public class MainFragment extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -78,8 +78,39 @@ public class MainFragment extends Fragment {
         bornBtn = (Button)view.findViewById(R.id.bornBtn);
         chooseBtn = (Button)view.findViewById(R.id.chooseBtn);
 
+        accidentBtn.setOnClickListener(this);
+        geneticBtn.setOnClickListener(this);
+        bornBtn.setOnClickListener(this);
+
+        chooseBtn.setEnabled(false);
+        chooseBtn.getBackground().setAlpha(128);
+
+
         // Inflate the layout for this fragment
         return view;
+    }
+
+    @Override
+    public void onClick(View view) {
+        chooseBtn.setEnabled(true);
+        chooseBtn.getBackground().setAlpha(255);
+
+        accidentBtn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.lightning,0,0,0);
+        geneticBtn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.atomic,0,0,0);
+        bornBtn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.rocket,0,0,0);
+
+        Button btn = (Button)view;
+        int leftDrawable = 0;
+
+        if (btn == accidentBtn){
+            leftDrawable = R.drawable.lightning;
+        }else if (btn == geneticBtn){
+            leftDrawable = R.drawable.atomic;
+        }else if (btn == bornBtn){
+            leftDrawable = R.drawable.rocket;
+        }
+
+        btn.setCompoundDrawablesWithIntrinsicBounds(leftDrawable,0,R.drawable.item_selected,0);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
